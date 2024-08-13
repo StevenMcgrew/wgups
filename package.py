@@ -1,6 +1,7 @@
 class Package:
-    def __init__(self, id_, address, city, state, zip_code, deadline, weight, status):
+    def __init__(self, id_, address_id, address, city, state, zip_code, deadline, weight, status, log):
         self.id_ = id_
+        self.address_id = address_id
         self.address = address
         self.city = city
         self.state = state
@@ -8,9 +9,11 @@ class Package:
         self.deadline = deadline
         self.weight = weight
         self.status = status
+        self.log = log
 
     def __str__(self):
         return str([self.id_,
+                    self.address_id,
                     self.address,
                     self.city,
                     self.state,
