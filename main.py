@@ -1,18 +1,17 @@
+# Student ID: 011837192
+
 from package import Package
 from truck import Truck
+from hash_table import HashTable
+from csv_file_loaders import *
 
 
 def main():
-    package1 = Package(35, "123 Main St", "2024-08-15", "New York", "10001", 2.5, "Out for Delivery")
-    truck1 = Truck(2, 100, "10:00 AM")
+    # Create and populate HashTable for packages
+    packages_table = HashTable()
+    populate_packages_table('packages.csv', packages_table)
 
-    print(package1.address)  # Output: 123 Main St
-    print(package1.deadline)  # Output: 2024-08-15
-    print(package1.city)  # Output: New York
-    print(package1.zip_code)  # Output: 10001
-    print(package1.weight)  # Output: 2.5
-    print(package1.status)
-    print(truck1.time_finished)
+    print(packages_table)
 
 
 if __name__ == '__main__':
