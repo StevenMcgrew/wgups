@@ -8,7 +8,6 @@ from route_optimizer import optimize_route
 
 
 def main():
-
     # Load data from csv files
     addresses = []
     populate_addresses_list('addresses.txt', addresses)
@@ -71,7 +70,7 @@ def main():
     route_3 = optimize_route(packages_3, distances)
     truck_3 = Truck(3, packages_3, route_3)
 
-    cli = CLI(packages, [truck_1, truck_2, truck_3])
+    cli = CLI(packages, distances, [truck_1, truck_2, truck_3])
     cli.run()
 
 

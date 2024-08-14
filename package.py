@@ -13,7 +13,6 @@ class Package:
 
     def __str__(self):
         return str([self.id_,
-                    self.address_id,
                     self.address,
                     self.city,
                     self.state,
@@ -21,4 +20,10 @@ class Package:
                     self.deadline,
                     self.weight,
                     self.status,
+                    self.log
                     ])
+
+    def __eq__(self, other):
+        if not hasattr(other, 'id_'):
+            return False
+        return self.id_ == other.id_
