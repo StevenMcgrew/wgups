@@ -44,7 +44,3 @@ class Truck:
             if pkg.address_id == address_id:
                 pkg.status = "Delivered at " + time.strftime('%H:%M:%S')
                 pkg.log["delivered"] = time.strftime('%H:%M:%S')
-
-                # print(pkg)
-
-                self.packages.remove(pkg)
