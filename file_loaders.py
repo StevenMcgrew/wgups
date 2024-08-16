@@ -18,8 +18,12 @@ def populate_packages_table(file_name, hash_table, addresses):
             deadline = pkg[5]
             weight = pkg[6]
             status = "at hub"
+            log_time = time
+            if pkg[7] == "Delayed on flight---will not arrive to depot until 9:05 am":
+                status = "Delayed"
+                log_time = datetime.datetime.strptime('09:05:00', '%H:%M:%S')
             package = Package(id_, address_id, address, city, state, zip_code, deadline, weight, status,
-                              {"at hub": time, "en route": None, "delivered": None})
+                              {"at hub": log_time, "en route": None, "delivered": None})
             hash_table.insert(id_, package)
 
 

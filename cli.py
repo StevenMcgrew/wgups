@@ -23,16 +23,9 @@ class CLI:
         if choice == '1':
             package = self.accept_id_and_get_package()
             time = self.accept_time()
-            original_status = package.status
-            if time >= package.log['at hub']:
-                package.status = 'at hub'
-            if time >= package.log['en route']:
-                package.status = 'en route'
-            if time >= package.log['delivered']:
-                package.status = original_status
+            self.sync_package_status_with_time(package, time)
             print("\n| ID | Address | City | State | Zip Code | Weight | Deadline | Status | Truck |")
             print(package)
-            input("\n    Press ENTER to return to menu")
             self.run_menu()
 
         if choice == '2':
@@ -43,7 +36,6 @@ class CLI:
             for pkg in all_packages:
                 self.sync_package_status_with_time(pkg, time)
                 print(pkg)
-            input("\n    Press ENTER to return to menu")
             self.run_menu()
 
         if choice == '3':
@@ -80,7 +72,7 @@ class CLI:
 
         # Second driver waits for delayed packages, then drives Truck 1
         t1 = self.trucks[0]
-        time = datetime.datetime.strptime('09:50:00', '%H:%M:%S')
+        time = datetime.datetime.strptime('09:05:00', '%H:%M:%S')
         t1.drive_route(time, self.distances)
         start_time = t1.start_time.strftime('%H:%M:%S')
         end_time = t1.time_of_completion.strftime('%H:%M:%S')
@@ -93,27 +85,27 @@ class CLI:
 
     def accept_menu_choice(self):
         while True:
-            choice = input(f"Please choose a menu option: ")
+            choice = input("Please choose a menu option: ")
             if choice not in ('1', '2', '3'):
-                print(f"Invalid input. Enter 1, 2, or 3.")
+                print("Invalid input. Enter 1, 2, or 3.")
                 continue
             return choice
 
     def accept_id_and_get_package(self):
         while True:
-            package_id = input(f"    Please enter a package id: ")
+            package_id = input("Please enter a package id: ")
             if package_id == 'MENU':
                 self.run_menu()
                 return
             package = self.packages.get(int(package_id))
             if package is None:
-                print("    Package not found. Input a valid package id, or input 'menu' to go back to menu.")
+                print("Package not found. Input a valid package id, or input 'menu' to go back to menu.")
                 continue
             return package
 
     def accept_time(self):
         while True:
-            time = input(f"    Please enter time as HH:MM in 24hr clock time: ")
+            time = input("Please enter time as HH:MM in 24hr clock time: ")
             if time == 'menu':
                 self.run_menu()
                 return
@@ -127,16 +119,18 @@ class CLI:
             except ValueError as ve:
                 is_valid = False
             if is_valid is False:
-                print("    Invalid input. Please input as HH:MM, or input 'menu' to go back to menu.")
+                print("Invalid input. Please input as HH:MM, or input 'menu' to go back to menu.")
                 continue
             return time
 
     def sync_package_status_with_time(self, package, time):
-        original_status = package.status
-        package.status = 'at hub'
+        package.status = "Delayed"
+        if time >= package.log['at hub']:
+            package.status = 'at hub'
         if time >= package.log['en route']:
             package.status = 'en route'
         if time >= package.log['delivered']:
-            package.status = original_status
+            delivered_time = package.log['delivered']
+            package.status = "Delivered at " + delivered_time.strftime('%H:%M:%S')
 
 
