@@ -1,5 +1,5 @@
 class Package:
-    def __init__(self, id_, address_id, address, city, state, zip_code, deadline, weight, status, log):
+    def __init__(self, id_, address_id, address, city, state, zip_code, deadline, weight, status, log, truck_name=None):
         self.id_ = id_
         self.address_id = address_id
         self.address = address
@@ -10,6 +10,7 @@ class Package:
         self.weight = weight
         self.status = status
         self.log = log
+        self.truck_name = truck_name
 
     def __str__(self):
         return str([self.id_,
@@ -17,10 +18,10 @@ class Package:
                     self.city,
                     self.state,
                     self.zip_code,
-                    self.deadline,
                     self.weight,
+                    self.deadline,
                     self.status,
-                    self.log
+                    self.truck_name
                     ])
 
     def __eq__(self, other):

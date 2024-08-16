@@ -4,7 +4,7 @@ from package import Package
 
 
 def populate_packages_table(file_name, hash_table, addresses):
-    time = datetime.datetime.strptime('07:59:00', '%H:%M:%S')
+    time = datetime.datetime.strptime('00:00:01', '%H:%M:%S')
     with open(file_name) as packages_file:
         packages = csv.reader(packages_file, delimiter=',')
         next(packages)  # skip header
@@ -19,7 +19,7 @@ def populate_packages_table(file_name, hash_table, addresses):
             weight = pkg[6]
             status = "at hub"
             package = Package(id_, address_id, address, city, state, zip_code, deadline, weight, status,
-                              {"at hub": time.strftime('%H:%M:%S'), "en route": None, "delivered": None})
+                              {"at hub": time, "en route": None, "delivered": None})
             hash_table.insert(id_, package)
 
 

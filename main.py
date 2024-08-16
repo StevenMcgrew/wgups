@@ -18,58 +18,20 @@ def main():
     packages = HashTable()
     populate_packages_table('packages.csv', packages, addresses)
 
-    # Prepare truck 1
-    packages_1 = [packages.get(6),
-                  packages.get(25),
-                  packages.get(28),
-                  packages.get(32),
-                  packages.get(40),
-                  packages.get(7),
-                  packages.get(10),
-                  packages.get(11),
-                  packages.get(22),
-                  packages.get(23),
-                  packages.get(24),
-                  packages.get(26),
-                  packages.get(29),
-                  packages.get(33),
-                  packages.get(34),
-                  packages.get(37)]
-    route_1 = optimize_route(packages_1, distances)
-    truck_1 = Truck(1, packages_1, route_1)
+    # Prepare trucks
+    truck_1 = Truck(1)
+    truck_1.load_packages(packages, [6, 25, 28, 32, 40, 7, 10, 11, 22, 23, 24, 26, 29, 33, 34, 37])
+    truck_1.route = optimize_route(truck_1.packages, distances)
 
-    # Prepare truck 2
-    packages_2 = [packages.get(3),
-                  packages.get(18),
-                  packages.get(36),
-                  packages.get(38),
-                  packages.get(13),
-                  packages.get(14),
-                  packages.get(15),
-                  packages.get(16),
-                  packages.get(19),
-                  packages.get(20),
-                  packages.get(5),
-                  packages.get(8),
-                  packages.get(27),
-                  packages.get(30),
-                  packages.get(35),
-                  packages.get(39)]
-    route_2 = optimize_route(packages_2, distances)
-    truck_2 = Truck(2, packages_2, route_2)
+    truck_2 = Truck(2)
+    truck_2.load_packages(packages, [3, 18, 36, 38, 13, 14, 15, 16, 19, 20, 5, 8, 27, 30, 35, 39])
+    truck_2.route = optimize_route(truck_2.packages, distances)
 
-    # Prepare truck 3
-    packages_3 = [packages.get(1),
-                  packages.get(4),
-                  packages.get(21),
-                  packages.get(2),
-                  packages.get(9),
-                  packages.get(12),
-                  packages.get(17),
-                  packages.get(31)]
-    route_3 = optimize_route(packages_3, distances)
-    truck_3 = Truck(3, packages_3, route_3)
+    truck_3 = Truck(3)
+    truck_3.load_packages(packages, [1, 4, 21, 2, 9, 12, 17, 31])
+    truck_3.route = optimize_route(truck_3.packages, distances)
 
+    # Run CLI
     cli = CLI(packages, distances, [truck_1, truck_2, truck_3])
     cli.run()
 

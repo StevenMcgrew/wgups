@@ -2,7 +2,8 @@ import datetime
 
 
 class Truck:
-    def __init__(self, id_, packages, route, avg_speed=18, miles_driven=0, start_time=None, time_of_completion=None):
+    def __init__(self, id_, packages=None, route=None, avg_speed=18, miles_driven=0, start_time=None,
+                 time_of_completion=None):
         self.id_ = id_
         self.packages = packages
         self.route = route
@@ -10,6 +11,14 @@ class Truck:
         self.miles_driven = miles_driven
         self.start_time = start_time
         self.time_of_completion = time_of_completion
+
+    def load_packages(self, packages, package_ids):
+        truck_packages = []
+        for pkg_id in package_ids:
+            pkg = packages.get(pkg_id)
+            pkg.truck_name = f"Truck {self.id_}"
+            truck_packages.append(packages.get(pkg_id))
+        self.packages = truck_packages
 
     def drive_route(self, start_time, distances):
         self.start_time = start_time
@@ -28,7 +37,7 @@ class Truck:
     def update_all_to_en_route(self, start_time):
         for pkg in self.packages:
             pkg.status = 'en route'
-            pkg.log['en route'] = start_time.strftime('%H:%M:%S')
+            pkg.log['en route'] = start_time
 
     def get_distance(self, start_id, end_id, distances):
         primary_index = start_id
@@ -43,4 +52,4 @@ class Truck:
         for pkg in self.packages:
             if pkg.address_id == address_id:
                 pkg.status = "Delivered at " + time.strftime('%H:%M:%S')
-                pkg.log["delivered"] = time.strftime('%H:%M:%S')
+                pkg.log["delivered"] = time
