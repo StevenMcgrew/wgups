@@ -4,10 +4,6 @@ class HashTable:
         for i in range(initial_capacity):
             self.table.append([])
 
-    def get_row_list(self, key):
-        row_index = hash(key) % len(self.table)
-        return self.table[row_index]
-
     def insert(self, key, value):
         row_list = self.get_row_list(key)
         for item in row_list:
@@ -29,6 +25,10 @@ class HashTable:
         for item in row_list:
             if item[0] == key:
                 row_list.remove([item[0], item[1]])
+
+    def get_row_list(self, key):
+        row_index = hash(key) % len(self.table)
+        return self.table[row_index]
 
     def __str__(self):
         primary_list = []

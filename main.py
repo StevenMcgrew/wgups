@@ -1,4 +1,4 @@
-# Student ID: 011837192
+# Steven McGrew, Student ID: 011837192
 
 from cli import CLI
 from truck import Truck

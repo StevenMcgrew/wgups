@@ -83,7 +83,8 @@ class CLI:
         print(f"Total miles for all trucks: {round(miles_1 + miles_2 + miles_3, 1)}")
         print()
 
-    def accept_menu_choice(self):
+    @staticmethod
+    def accept_menu_choice():
         while True:
             choice = input("Please choose a menu option: ")
             if choice not in ('1', '2', '3'):
@@ -123,7 +124,8 @@ class CLI:
                 continue
             return time
 
-    def sync_package_status_with_time(self, package, time):
+    @staticmethod
+    def sync_package_status_with_time(package, time):
         package.status = "Delayed"
         if time >= package.log['at hub']:
             package.status = 'at hub'

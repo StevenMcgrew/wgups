@@ -39,7 +39,8 @@ class Truck:
             pkg.status = 'en route'
             pkg.log['en route'] = start_time
 
-    def get_distance(self, start_id, end_id, distances):
+    @staticmethod
+    def get_distance(start_id, end_id, distances):
         primary_index = start_id
         secondary_index = end_id
         if primary_index < secondary_index:
