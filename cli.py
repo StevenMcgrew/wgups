@@ -42,7 +42,7 @@ class CLI:
             sys.exit("Goodbye!")
 
     def run_simulation(self):
-        # First driver will drive Truck 2
+        # First driver will drive Truck 2 starting at 8:00
         t2 = self.trucks[1]
         time = datetime.datetime.strptime('08:00:00', '%H:%M:%S')
         t2.drive_route(time, self.distances)
@@ -58,7 +58,8 @@ class CLI:
         package_9.zip_code = '84111'
 
         # When the first driver is done driving Truck 2,
-        # they will drive Truck 3 after Package 9's address was updated
+        # they will drive Truck 3 as long as it is
+        # after Package 9's address was updated
         truck_3_start_time = t2.time_of_completion
         if truck_3_start_time < address_update_time:
             truck_3_start_time = address_update_time
@@ -70,7 +71,7 @@ class CLI:
         miles_3 = round(t3.miles_driven, 1)
         print(f"Truck {t3.id_}: start {start_time}, end {end_time}, miles {miles_3}")
 
-        # Second driver waits for delayed packages, then drives Truck 1
+        # Second driver waits for delayed packages arriving at 9:05, then drives Truck 1
         t1 = self.trucks[0]
         time = datetime.datetime.strptime('09:05:00', '%H:%M:%S')
         t1.drive_route(time, self.distances)
@@ -134,5 +135,10 @@ class CLI:
         if time >= package.log['delivered']:
             delivered_time = package.log['delivered']
             package.status = "Delivered at " + delivered_time.strftime('%H:%M:%S')
-
-
+        if package.id_ == 9:
+            if time < datetime.datetime.strptime('10:20', '%H:%M'):
+                package.address = '300 State St'
+                package.zip_code = '84103'
+            else:
+                package.address = '410 S State St'
+                package.zip_code = '84111'

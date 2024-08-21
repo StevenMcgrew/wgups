@@ -11,7 +11,7 @@ def optimize_route(packages, distances):
     # since those EOD packages will be delivered at time of priority drop off
     remove_redundant_EOD_ids(EOD_ids, priority_ids)
 
-    # Route starts at the hub, which is id 0
+    # Route starts at hub id 0, therefore add it to start of list
     priority_route = [0] + priority_ids
 
     # Order the priority_ids by nearest address
@@ -24,7 +24,7 @@ def optimize_route(packages, distances):
     start_index = len(priority_route) - 1
     total_route = order_by_nearest(total_route, start_index, distances)
 
-    # Route ends at the hub, which has an id of 0
+    # Route ends at hub id 0, therefore add it to end of list
     total_route.append(0)
 
     return total_route
